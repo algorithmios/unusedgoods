@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.Dialog">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="noReadA"/>
+        <property name="noReadB"/>
+        <property name="date"/>
+        <many-to-one name="roleA" class="edu.swust.goods.domain.User" column="roleA_id" />
+        <many-to-one name="roleB" class="edu.swust.goods.domain.User" column="roleB_id" />
+        <set name="contents" inverse="true" cascade="save-update,delete-orphan">
+			<key column="content_id" />
+			<one-to-many class="edu.swust.goods.domain.DialogContent" />
+		</set>
+<!--             private Long id;
+    private Set<DialogContent> contents = new HashSet<DialogContent>();
+    private User roleA;
+    private User roleB;
+    private Integer noReadA;
+    private Integer noReadB;
+    -->
+    </class>
+</hibernate-mapping>

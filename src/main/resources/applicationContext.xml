@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<!-- 数据库连接 ->DataSource->SessionFactory->dao->service->Junit->Action -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close" >
+		<property name="driverClassName" value="${db_driverClassName}"/>
+		<property name="url" value="${db_url}" />
+		<property name="username" value="${db_username}" />
+		<property name="password" value="${db_password}" />
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingLocations" value="classpath:edu/swust/goods/domain/*.hbm.xml" />
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${hibernate.dialect}
+				hibernate.hbm2ddl.auto=${hibernate.hbm2ddl.auto}
+			</value>
+		</property>
+	</bean>
+				<!-- hibernate.show_sql=${hibernate.show_sql} -->
+	<bean id="adminDao" class="edu.swust.goods.dao.impl.AdminDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.Administrator" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="adminService" class="edu.swust.goods.service.impl.AdminServiceImpl">
+		<property name="baseDao" ref="adminDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="userDao" class="edu.swust.goods.dao.impl.UserDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.User" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="userService" class="edu.swust.goods.service.impl.UserServiceImpl">
+		<property name="baseDao" ref="userDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="underShelfGoodsDao" class="edu.swust.goods.dao.impl.UnderShelfGoodsDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.UnderShelfGoods" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="underShelfGoodsService" class="edu.swust.goods.service.impl.UnderShelfGoodsServiceImpl">
+		<property name="baseDao" ref="underShelfGoodsDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="goodsDao" class="edu.swust.goods.dao.impl.GoodsDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.Goods" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="goodsService" class="edu.swust.goods.service.impl.GoodsServiceImpl">
+		<property name="baseDao" ref="goodsDao" />
+		<property name="underShelfGoodsDao" ref="underShelfGoodsDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="goodsImageDao" class="edu.swust.goods.dao.impl.GoodsImageDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.GoodsImage" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="goodsImageService" class="edu.swust.goods.service.impl.GoodsImageServiceImpl">
+		<property name="baseDao" ref="goodsImageDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="verifyLogDao" class="edu.swust.goods.dao.impl.VerifyLogDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.VerifyLog" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="verifyLogService" class="edu.swust.goods.service.impl.VerifyLogServiceImpl">
+		<property name="baseDao" ref="verifyLogDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="suggestionDao" class="edu.swust.goods.dao.impl.SuggestionDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.Suggestion" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="suggestionService" class="edu.swust.goods.service.impl.SuggestionServiceImpl">
+		<property name="baseDao" ref="suggestionDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="reqCodeDao" class="edu.swust.goods.dao.impl.ReqCodeDaoImpl">
+		<property name="entityClass" value="edu.swust.goods.domain.ReqCode" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="reqCodeService" class="edu.swust.goods.service.impl.ReqCodeServiceImpl">
+		<property name="baseDao" ref="reqCodeDao" />
+	</bean>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- 	<bean id="daotest" class="edu.swust.goods.test.MainTest">
+		<property name="adminService" ref="adminService" />
+		<property name="goodsService" ref="goodsService" />
+		<property name="userService" ref="userService" />
+	</bean> 
+	<property name="goodsImageService" ref="goodsImageService" />-->
+ 
+    <bean id="test" class="edu.swust.goods.action.TestAction">
+		<property name="adminService" ref="adminService" />
+		<property name="goodsService" ref="goodsService" />
+		<property name="userService" ref="userService" />
+		<property name="underShelfGoodsService" ref="underShelfGoodsService" />
+	</bean>
+	
+	<bean id="user" class="edu.swust.goods.action.UserAction" scope="prototype">
+		<property name="goodsService" ref="goodsService" />
+		<property name="userService" ref="userService" />
+		<property name="reqCodeService" ref="reqCodeService" />
+	</bean>
+	
+	<bean id="suggestion" class="edu.swust.goods.action.SuggestionAction" scope="prototype">
+	    <property name="suggestionService" ref="suggestionService" />
+		<property name="adminService" ref="adminService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	
+	<bean id="admin" class="edu.swust.goods.action.AdminAction" scope="prototype">
+		<property name="adminService" ref="adminService" />
+		<property name="goodsService" ref="goodsService" />
+		<property name="verifyLogService" ref="verifyLogService" />
+		<property name="userService" ref="userService" />
+
+	</bean>
+	
+	<bean id="login" class="edu.swust.goods.action.LoginAction" scope="prototype">
+		<property name="adminService" ref="adminService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	
+	
+	<bean id="file" class="edu.swust.goods.action.FileAction" scope="prototype"/>
+	
+	<bean id="goods" class="edu.swust.goods.action.GoodsAction" scope="prototype">
+		<property name="goodsService" ref="goodsService" />
+		<property name="userService" ref="userService" />
+		<property name="adminService" ref="adminService" />
+		<property name="underShelfGoodsService" ref="underShelfGoodsService" />
+	</bean>
+	
+	<bean id="home" class="edu.swust.goods.action.HomeAction" scope="prototype">
+		<property name="goodsService" ref="goodsService" />
+		<property name="userService" ref="userService" />
+		<property name="adminService" ref="adminService" />
+		<property name="goodsImageService" ref="goodsImageService" />
+	</bean>
+	
+	<!-- 
+	
+	private IGoodsService goodsService;
+    private IUserService userService;
+    private IAdminService adminService;
+    private IGoodsImageService goodsImageService;
+	
+	-->
+	
+    <bean id="myimage" class="edu.swust.goods.action.ImageTest" scope="prototype"/>
+ 
+	<bean id="txManager"  
+	       class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+	       <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>
+
+    <aop:config>                                
+        <aop:pointcut id="pointcutId" expression="execution(* edu.swust.goods.dao*.*Dao*.*(..))" />  
+        <aop:advisor pointcut-ref="pointcutId"  advice-ref="txAdvice" />  
+    </aop:config>  
+  
+   
+  
+    <tx:advice id="txAdvice" transaction-manager="txManager">  
+        <tx:attributes>  
+            <tx:method name="**" propagation="REQUIRED" />  
+        </tx:attributes>  
+    </tx:advice>   
+	
+	
+	
+</beans>

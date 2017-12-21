@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.DialogContent">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="date"/>
+        <property name="content"/>
+        <property name="roleA"/>
+        <property name="roleB"/>
+        <many-to-one name="dialog" class="edu.swust.goods.domain.Dialog" column="content_id" />
+    </class>
+</hibernate-mapping>

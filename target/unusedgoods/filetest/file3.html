@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+	<title>测试</title>
+	<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="./index.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="./ajaxfileupload.js"></script>
+    <script type="text/javascript">
+	    function fileUpload() {  
+	        var files = ['file1','file2','file3'];  //将上传三个文件 ID 分别为file2,file2,file3  
+	        $.ajaxFileUpload( {  
+	            url : 'file_fileUpload',     //用于文件上传的服务器端请求地址    
+	            secureuri : false,            //一般设置为false    
+	            fileElementId : files,        //文件上传的id属性  <input type="file" id="file" name="file" />    
+	            dataType : 'json',            //返回值类型 一般设置为json    
+	            success : function(data, status) {  
+	                var fileNames = data.fileFileName; //返回的文件名   
+	                var filePaths = data.filePath;     //返回的文件地址   
+	                for(var i=0;i<data.fileFileName.length;i++){  
+	                    //将上传后的文件 添加到页面中 以进行下载  
+	                    $("#down").after("<tr><td height='25'>"+fileNames[i]+  
+	                            "</td><td><a href='downloadFile?downloadFilePath="+filePaths[i]+"'>下载</a></td></tr>")  
+	                }  
+	            }  
+	        })  
+	    }  
+	</script>
+</head>
+
+<body>
+
+ <form action="" enctype="multipart/form-data">  
+        <h2>  
+            多文件上传  
+        </h2>  
+        <input type="file" id="file1" name="file" />  
+        <br />  
+        <input type="file" id="file2" name="file" />  
+        <br />  
+        <input type="file" id="file3" name="file" />  
+        <br />  
+         <input type="text" id="id" name="id" /> 
+        <input type="button" onclick="fileUpload();" value="上传">  
+    </form>  
+</body>
+</html>

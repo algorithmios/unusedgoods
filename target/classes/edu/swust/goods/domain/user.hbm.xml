@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.User">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="nickname"/>
+        <property name="headImageUrl"/>
+        <property name="account"/>
+        <property name="password"/>
+        <property name="weixin"/>
+        <property name="phone"/>
+        <property name="qq"/>
+
+		<set name="collecteds"  table="collecteLog" cascade="save-update,delete-orphan">
+			<key column="user_id" />
+			<many-to-many class="edu.swust.goods.domain.Goods" column="goods_id"/>
+		</set>
+		
+		<set name="goods" inverse="true" cascade="delete-orphan">
+			<key column="owner_id" />
+			<one-to-many class="edu.swust.goods.domain.Goods" />
+		</set>
+		
+		<set name="underShelfGoods">
+			<key column="owner_id" />
+			<one-to-many class="edu.swust.goods.domain.UnderShelfGoods" />
+		</set>
+		
+		<set name="roleA" inverse="true" cascade="save-update,delete-orphan">
+			<key column="roleA_id" />
+			<one-to-many class="edu.swust.goods.domain.Dialog" />
+		</set>
+		
+		<set name="roleB" inverse="true" cascade="save-update,delete-orphan">
+			<key column="roleB_id" />
+			<one-to-many class="edu.swust.goods.domain.Dialog" />
+		</set>
+		
+		<set name="collectedUnderShelfGoods" table="undercollectedLog" cascade="save-update,delete">
+			<key column="collected_id" />
+			<many-to-many class="edu.swust.goods.domain.UnderShelfGoods" column="goods_id"/>
+		</set>
+    </class>
+</hibernate-mapping>

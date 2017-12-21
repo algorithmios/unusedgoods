@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.Suggestion">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="fromName"/>
+        <property name="content"/>
+        <property name="date"/>
+        <property name="isRead"/>
+        <!-- private Long id;
+    private String fromName;
+    private String content;
+    private Date date;
+    private Integer read; -->
+    </class>
+</hibernate-mapping>

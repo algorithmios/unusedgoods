@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.UnderShelfGoods">
+        <id name="id"/>
+        <property name="name"/>
+        <property name="price"/>
+        <property name="uploadTime"/>
+        <property name="classification"/>
+        <property name="underShelfTime"/>
+        <property name="reason"/>
+        <property name="imageUrl"/>
+        <many-to-one name="owner" class="edu.swust.goods.domain.User" column="owner_id"/>
+        <set name="collecters"  table="undercollectedLog">
+			<key column="goods_id" />
+			<many-to-many class="edu.swust.goods.domain.User" column="collected_id" />
+		</set>
+    </class>
+</hibernate-mapping>

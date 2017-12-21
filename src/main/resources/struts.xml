@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>                                         
+     <!-- 设置字符编码 -->
+    <constant name="struts.i18n.encoding" value="utf-8" />
+    <!-- 设置自动装载国际化 -->
+    <constant name="struts.i18n.reload" value="true" />
+    <!-- 设置动态方法调用 -->
+    <constant name="struts.enable.DnamicMethodInvocation" value="true" />
+    <!-- 设置开发模式 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 指定每次配置文件更改后，自动重新加载 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <!-- 设置访问方式 -->
+    <constant name="struts.action.extension" value="action,," />
+    <!--设置上传文件大小20MB，默认为2MB大小 -->
+    <constant name="struts.multipart.maxSize" value="20971520"></constant>
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="randomCode_*" class="randomCode" method="{1}"/>
+		<action name="test_*" class="test" method="{1}"/>
+		<action name="admin_*" class="admin" method="{1}"/>
+		<action name="login_*" class="login" method="{1}"/>
+		<action name="user_*" class="user" method="{1}"/>
+		<action name="goods_*" class="goods" method="{1}"/>
+		<action name="suggestion_*" class="suggestion" method="{1}"/>
+		<action name="home_*" class="home" method="{1}"/>
+		
+        <action name="file_*" class="file" method="{1}"/>
+		
+    </package>
+
+</struts>

@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:22:42 +0800] "GET /unusedgoods/login_superIn HTTP/1.1" 200 - http-bio-8080-exec-1 684
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:22:48 +0800] "GET /unusedgoods/goods_cancleCollection?id=12 HTTP/1.1" 200 40 http-bio-8080-exec-2 244
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:23:21 +0800] "GET /unusedgoods/goods_cancleCollection?id=1 HTTP/1.1" 200 40 http-bio-8080-exec-3 178
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:26:39 +0800] "GET /unusedgoods/goods_cancleCollection?id=12 HTTP/1.1" 200 40 http-bio-8080-exec-5 36
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:27:25 +0800] "GET /unusedgoods/goods_deleteUnderShelfGoods?id=12 HTTP/1.1" 200 40 http-bio-8080-exec-6 162
+0:0:0:0:0:0:0:1 - - [20/Dec/2017:14:29:48 +0800] "GET /unusedgoods/goods_underShelfGoods?id=28 HTTP/1.1" 200 40 http-bio-8080-exec-8 298

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+	<title>测试</title>
+	<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="./index.js" charset="utf-8"></script>
+    <script type="text/javascript">
+	    function doUpload() {  
+	        var formData = new FormData($( "#uploadForm" )[0]);  
+	        $.ajax({  
+	             url: 'http://localhost:8080/unusedgoods/file_fileUpload' ,  
+	             type: 'POST',  
+	             data: formData,  
+	             async: false,  
+	             cache: false,  
+	             contentType: false,  
+	             processData: false,  
+	             success: function (returndata) {  
+	                 alert(returndata);  
+	             },  
+	             error: function (returndata) {  
+	                 alert(returndata);  
+	             }  
+	        });  
+	   }  
+	</script>
+</head>
+
+<body>
+	<form action="" id="postForm" enctype="multipart/form-data">
+    <input type="file" name="file1">
+	<input type="file" name="file2">
+	<input type="file" name="file3">
+	</form>
+	<button>上传</button>
+	
+	<!-- <form id= "uploadForm">  
+      <p >指定文件名： <input type="text" name="filename" value= ""/></p>  
+      <p >上传文件： <input type="file" name="file"/></p>  
+      <input type="button" value="上传" onclick="doUpload()" />  
+	</form>   -->
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.GoodsImage">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="imageUrl"/>
+        <many-to-one name="goods" class="edu.swust.goods.domain.Goods" column="goods_id" />
+    </class>
+    
+</hibernate-mapping>

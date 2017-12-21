@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.ReqCode">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="email"/>
+        <property name="reqCode"/>
+        <property name="date"/>
+        <property name="verification"/>
+<!--       private Long id;
+    private String email;
+    private String reqCode;
+    private Date date;
+    -->
+    </class>
+</hibernate-mapping>

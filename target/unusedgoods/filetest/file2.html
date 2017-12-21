@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+	<title>测试</title>
+	<script type="text/javascript" src="./jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="./index.js" charset="utf-8"></script>
+    <script type="text/javascript">
+	    function confirmUploadImg() {
+	        var _url = "invoiceAction!updateImg";
+	        var _data = {
+	            "test": JSON.stringify({
+	                name: '123'
+	            }),
+	            "id": 1111
+	        };
+	        //将其他参数也加入到form表单中，方便其他参数传递
+	        //清除非文件上传的文本，否则每次添加会导致form表单元素过多
+	        /* $("#postForm").find("input").not("[type=file]").remove(); */
+	       /*  for (var i in _data) {
+	            var val = _data[i];
+	            console.log(val);
+	            var inputs = document.createElement("input");
+	            $(inputs).attr("name", i).attr("value", val);
+	            //添加元素到表单
+	            $("#postForm").append(inputs);
+	        } */
+	        var formData = new FormData($("#postForm")[0]);
+	        console.log(formData);
+	        $.ajax({
+	            url: 'http://localhost:8080/unusedgoods/file_fileUpload',
+	            type: 'POST',
+	            data: formData,
+	            async: false,
+	            cache: false,
+	            contentType: false,
+	            processData: false,
+	            beforeSend:function(){
+	    			console.log("正在进行，请稍候");
+	    		},
+	    		success : function(responseStr) { 
+	    			if(responseStr.status===0){
+	    				console.log("成功"+responseStr);
+	    			}else{
+	    				console.log("失败" +responseStr);
+	    			}
+	    		}, 
+	    		error : function(responseStr) { 
+	    			console.log("error");
+	    			console.log(formData);
+	    		} 
+	        });
+	    }
+	    
+	    function getImgUrl() {
+	         if (this.files.length > 0) {
+	                   if (window.FileReader) {
+	                            //关键点===============
+	                            var reader = newFileReader();
+	                            reader.readAsDataURL(this.files[0]);
+	                            reader.onload =function(e) {
+	//赋值给img元素，用于展示
+	                                               $("#invoiceImg").attr("src",e.target.result);
+	                                     }
+	                                     //===============
+	                   }
+	         }
+	 
+	}
+	</script>
+</head>
+
+<body>
+
+    <div>
+		<div class="selectImg">
+			<form action="" id="postForm" enctype="multipart/form-data">
+				<!-- 文件内容变化就调用getImgUrl方法，获取变化后的文件，然后通过fileRead对象生成临时文件，赋值给invoiceImg -->
+				<input type="file" accept="image/*" onchange="getImgUrl" id="invoiceImg" name="invoiceImg"/>
+			</form>
+			<!--预览图片的元素 -->
+			<img id="invoiceImg" alt=""/>
+		</div>
+		<div class="btns">
+			<!-- 点击后通过formData对象异步提交上面的form-->
+			<input type="button" value="上传" onclick="confirmUploadImg()" />  
+		</div>
+	</div>
+</body>
+</html>

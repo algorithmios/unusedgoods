@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping>
+	
+    <class name="edu.swust.goods.domain.VerifyLog">
+        <!-- 非主键属性使用 property 关键字 -->
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="date"/>
+        <property name="result"/>
+        <property name="goodsName"/>
+        <many-to-one name="administrator" class="edu.swust.goods.domain.Administrator" column="admin_id" />
+    </class>
+    
+</hibernate-mapping>
